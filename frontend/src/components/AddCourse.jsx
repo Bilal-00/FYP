@@ -43,7 +43,7 @@ const AddCourse = () => {
   return (
     <Container className="py-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h1>Add New Course</h1>
+        <h1>Add New Department</h1>
         <div>
           <Button variant="secondary" className="me-2" onClick={handleBack}>
             Back
@@ -57,10 +57,10 @@ const AddCourse = () => {
       {success && <Alert variant="success">{success}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formCourseName" className="mb-3">
-          <Form.Label>Course Name</Form.Label>
+          <Form.Label>Department Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter course name"
+            placeholder="Enter department name"
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
             required
@@ -68,7 +68,7 @@ const AddCourse = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? "Adding..." : "Add Course"}
+          {loading ? "Adding..." : "Add Department"}
         </Button>
         <Button
           variant="secondary"

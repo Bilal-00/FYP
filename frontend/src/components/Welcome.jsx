@@ -126,7 +126,7 @@ const Welcome = ({ user }) => {
         }}
       >
         <Card.Body>
-          <Card.Title className="mb-4 fw-bold text-primary fs-3">Welcome, {user?.username}!</Card.Title>
+          <Card.Title className="mb-4 fw-bold text-primary fs-3">Welcome, {user?.first_name}!</Card.Title>
           <Card.Text className="fs-5">
             <strong>Department:</strong> {user?.department}
           </Card.Text>
@@ -158,7 +158,7 @@ const Welcome = ({ user }) => {
               className="rounded-pill px-4 py-2 me-2 shadow-sm"
               onClick={() => navigate(-1)}
             >
-              Back to Courses
+              Back to Departments
             </Button>
             <Button
               //variant="success"

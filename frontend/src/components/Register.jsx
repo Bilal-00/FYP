@@ -11,10 +11,11 @@ const Register = () => {
     last_name: "",
     email: "",
     profile_pic: null,
-    phone_number: "",
+    // phone_number: "",
     department: "",
     username: "",
     password: "",
+    security_message: "", // ✅ Add this
   });
 
   const navigate = useNavigate();
@@ -25,56 +26,56 @@ const Register = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  let formField = new FormData();
+    e.preventDefault();
+    let formField = new FormData();
 
-  for (const key in formData) {
-    if (formData[key] !== null) {
-      formField.append(key, formData[key]);
+    for (const key in formData) {
+      if (formData[key] !== null) {
+        formField.append(key, formData[key]);
+      }
     }
-  }
 
-  try {
-    await axios.post("http://127.0.0.1:8000/api/student/register/", formField, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-
-    toast.success("Registration Successful!", {
-      position: toast.POSITION?.TOP_RIGHT,
-    });
-
-    navigate("/student-login");
-  } catch (error) {
-    // Handle and show detailed error messages
-    if (error.response && error.response.data) {
-      const errors = error.response.data;
-
-      // If error is an object (field-wise errors), loop and show them
-      Object.values(errors).forEach((errMsg) => {
-        if (Array.isArray(errMsg)) {
-          errMsg.forEach((msg) =>
-            toast.error(msg, {
-              position: toast.POSITION?.TOP_RIGHT,
-            })
-          );
-        } else {
-          toast.error(errMsg, {
-            position: toast.POSITION?.TOP_RIGHT,
-          });
-        }
+    try {
+      await axios.post("http://127.0.0.1:8000/api/student/register/", formField, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-    } else {
-      // Fallback error
-      toast.error("Registration failed. Please try again.", {
+
+      toast.success("Registration Successful!", {
         position: toast.POSITION?.TOP_RIGHT,
       });
+
+      navigate("/student-login");
+    } catch (error) {
+      // Handle and show detailed error messages
+      if (error.response && error.response.data) {
+        const errors = error.response.data;
+
+        // If error is an object (field-wise errors), loop and show them
+        Object.values(errors).forEach((errMsg) => {
+          if (Array.isArray(errMsg)) {
+            errMsg.forEach((msg) =>
+              toast.error(msg, {
+                position: toast.POSITION?.TOP_RIGHT,
+              })
+            );
+          } else {
+            toast.error(errMsg, {
+              position: toast.POSITION?.TOP_RIGHT,
+            });
+          }
+        });
+      } else {
+        // Fallback error
+        toast.error("Registration failed. Please try again.", {
+          position: toast.POSITION?.TOP_RIGHT,
+        });
+      }
     }
-  }
-};
+  };
 
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100">
-      
+
       <Card className="shadow-lg p-4 rounded-4" style={{ maxWidth: "600px", width: "100%" }}>
         <Card.Header
           className="text-white text-center rounded-3 mb-4"
@@ -138,12 +139,23 @@ const Register = () => {
                 className="shadow-sm"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="phone_number">
+            {/* <Form.Group className="mb-3" controlId="phone_number">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="text"
                 name="phone_number"
                 placeholder="Enter phone number"
+                onChange={handleChange}
+                required
+                className="shadow-sm"
+              />
+            </Form.Group> */}
+            <Form.Group className="mb-3" controlId="security_message">
+              <Form.Label>Security Message</Form.Label>
+              <Form.Control
+                type="text"
+                name="security_message"
+                placeholder="Enter a security message"
                 onChange={handleChange}
                 required
                 className="shadow-sm"

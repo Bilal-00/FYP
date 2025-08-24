@@ -29,6 +29,9 @@ import SubjectResults from "./components/SubjectResults";
 import EditResult from "./components/EditResult";
 import Profile from "./components/Profile";
 import AddAdmin from "./components/AddAdmin";
+import ForgotPassword from "./components/ForgotPassword";
+import CreatePassword from "./components/CreatePassword";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -80,6 +83,9 @@ const App = () => {
         <Route path="/admin/result/:id/edit" element={<EditResult />} />
         <Route path="/profile" element={<Profile user={user} />} />
         <Route path="/add-admin" element={<AddAdmin />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/create-password" element={<CreatePassword />} />
+
 
 
 

@@ -1,3 +1,4 @@
+import random
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -6,7 +7,7 @@ from .models import Student,Course, Subject, Question, QuestionOption,Result
 from django.contrib.auth import authenticate
 from rest_framework.status import HTTP_200_OK, HTTP_401_UNAUTHORIZED
 from rest_framework.views import APIView
-from .serializers import StudentRegistrationSerializer, LoginSerializer, DashboardSerializer,CourseSerializer, SubjectSerializer, QuestionSerializer, QuestionOptionSerializer,ResultSerializer
+from .serializers import PasswordResetSerializer, StudentRegistrationSerializer, LoginSerializer, DashboardSerializer,CourseSerializer, SubjectSerializer, QuestionSerializer, QuestionOptionSerializer,ResultSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
@@ -222,3 +223,93 @@ class ResultDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Result.objects.all()
     serializer_class = ResultSerializer
 
+
+
+
+FAKE_MESSAGES = [
+    "My best friend's name",
+    "My favorite teacher",
+    "My childhood nickname",
+    "My dream job",
+    "My first school",
+    "My favorite game",
+    "The name of my first crush",
+    "My favorite movie"
+]
+
+@api_view(['GET'])
+def get_security_question(request, username):
+    try:
+        user = Student.objects.get(username=username)
+        real_message = user.security_message or "Unknown"
+
+        # Pick 3 fake options (that don't include the real one)
+        fake_options = random.sample([m for m in FAKE_MESSAGES if m != real_message], 3)
+
+        return Response({
+            "real_message": real_message,
+            "fake_options": fake_options
+        }, status=status.HTTP_200_OK)
+
+    except Student.DoesNotExist:
+        return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+from .serializers import SecurityAnswerSerializer
+@api_view(['POST'])
+def verify_security_answer(request):
+    serializer = SecurityAnswerSerializer(data=request.data)
+    if serializer.is_valid():
+        username = serializer.validated_data['username']
+        selected_answer = serializer.validated_data['selected_answer']
+
+        try:
+            user = Student.objects.get(username=username)
+            if user.security_message.strip().lower() == selected_answer.strip().lower():
+                return Response({"success": True}, status=status.HTTP_200_OK)
+            else:
+                return Response({"success": False}, status=status.HTTP_200_OK)
+        except Student.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+from django.contrib.auth.hashers import make_password
+@api_view(['POST'])
+def reset_password(request):
+    serializer = PasswordResetSerializer(data=request.data)
+    if serializer.is_valid():
+        username = serializer.validated_data['username']
+        new_password = serializer.validated_data['new_password']
+
+        try:
+            user = Student.objects.get(username=username)
+            user.password = make_password(new_password)
+            user.save()
+            return Response({"message": "Password reset successfully."}, status=status.HTTP_200_OK)
+
+        except Student.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['DELETE'])
+def delete_results_by_subject(request, subject_id):
+    try:
+        deleted_count, _ = Result.objects.filter(subject_id=subject_id).delete()
+        return Response(
+            {"message": f"Deleted {deleted_count} results for subject {subject_id}"},
+            status=status.HTTP_200_OK
+        )
+    except Exception as e:
+        return Response(
+            {"error": str(e)},
+            status=status.HTTP_400_BAD_REQUEST
+        )

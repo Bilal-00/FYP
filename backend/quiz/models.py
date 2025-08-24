@@ -5,6 +5,7 @@ class Student(AbstractUser):
     profile_pic = models.ImageField(upload_to='profile/images', blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     department = models.CharField(max_length=100, blank=True, null=True)
+    security_message = models.CharField(max_length=255, blank=True, null=True)
     
 
 

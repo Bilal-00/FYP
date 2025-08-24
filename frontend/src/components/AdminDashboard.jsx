@@ -58,8 +58,8 @@ const AdminDashboard = ({ user }) => {
         }}
       >
         {[
-          { label: "Manage Courses", variant: "primary", route: "/admin/courses" },
-          { label: "Add Course", variant: "success", route: "/admin/add-course" },
+          { label: "Manage Departments", variant: "primary", route: "/admin/courses" },
+          { label: "Add Department", variant: "success", route: "/admin/add-course" },
           { label: "Add Subject", variant: "info", route: "/admin/add-subject" },
           { label: "Add Questions", variant: "warning", route: "/admin/add-question" },
           { label: "Manage Results", variant: "dark", route: "/admin/manage-results" },

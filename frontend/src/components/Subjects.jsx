@@ -49,7 +49,7 @@ const Subjects = ({ courseId, onBack }) => {
   return (
     <Container className="mt-5">
       <Button variant="primary" className="mb-4 rounded-pill shadow-sm px-4 py-2" onClick={onBack}>
-        &larr; Back to Courses
+        &larr; Back to Departments
       </Button>
       <h2 className="text-center mb-4 fw-bold text-primary">Available Subjects</h2>
 

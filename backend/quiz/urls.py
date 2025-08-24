@@ -27,4 +27,9 @@ urlpatterns = [
 
     path('results/', ResultListCreateView.as_view(), name='result-list-create'),  # List all results or create a new one
     path('results/<int:pk>/', ResultDetailView.as_view(), name='result-detail'),  # Retrieve, update, or delete a specific result
+    path('security-question/<str:username>/', views.get_security_question, name='get_security_question'),
+    path('verify-security-answer/', views.verify_security_answer, name='verify_security_answer'),
+    path('reset-password/', views.reset_password, name='reset_password'),
+    path('results/subject/<int:subject_id>/delete/', views.delete_results_by_subject, name='delete-results-by-subject'),
+    
 ]

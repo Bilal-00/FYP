@@ -11,10 +11,11 @@ const AdminRegister = () => {
     last_name: "",
     email: "",
     profile_pic: null,
-    phone_number: "",
+    // phone_number: "",
     department: "",
     username: "",
     password: "",
+    security_message: "", // ✅ Add this
   });
 
   const navigate = useNavigate();
@@ -25,49 +26,49 @@ const AdminRegister = () => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  let formField = new FormData();
+    e.preventDefault();
+    let formField = new FormData();
 
-  for (const key in formData) {
-    if (formData[key] !== null) {
-      formField.append(key, formData[key]);
+    for (const key in formData) {
+      if (formData[key] !== null) {
+        formField.append(key, formData[key]);
+      }
     }
-  }
 
-  try {
-    await axios.post("http://127.0.0.1:8000/api/admin/register/", formField, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-
-    toast.success("Admin Registration Successful!", {
-      position: toast.POSITION?.TOP_RIGHT,
-    });
-
-    navigate("/admin-dashboard");
-  } catch (error) {
-    if (error.response && error.response.data) {
-      const errors = error.response.data;
-
-      Object.values(errors).forEach((errMsg) => {
-        if (Array.isArray(errMsg)) {
-          errMsg.forEach((msg) =>
-            toast.error(msg, {
-              position: toast.POSITION?.TOP_RIGHT,
-            })
-          );
-        } else {
-          toast.error(errMsg, {
-            position: toast.POSITION?.TOP_RIGHT,
-          });
-        }
+    try {
+      await axios.post("http://127.0.0.1:8000/api/admin/register/", formField, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
-    } else {
-      toast.error("Registration failed. Please try again.", {
+
+      toast.success("Admin Registration Successful!", {
         position: toast.POSITION?.TOP_RIGHT,
       });
+
+      navigate("/admin-dashboard");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errors = error.response.data;
+
+        Object.values(errors).forEach((errMsg) => {
+          if (Array.isArray(errMsg)) {
+            errMsg.forEach((msg) =>
+              toast.error(msg, {
+                position: toast.POSITION?.TOP_RIGHT,
+              })
+            );
+          } else {
+            toast.error(errMsg, {
+              position: toast.POSITION?.TOP_RIGHT,
+            });
+          }
+        });
+      } else {
+        toast.error("Registration failed. Please try again.", {
+          position: toast.POSITION?.TOP_RIGHT,
+        });
+      }
     }
-  }
-};
+  };
 
 
   return (
@@ -135,7 +136,7 @@ const AdminRegister = () => {
                 className="shadow-sm"
               />
             </Form.Group>
-            <Form.Group className="mb-3" controlId="phone_number">
+            {/* <Form.Group className="mb-3" controlId="phone_number">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="text"
@@ -145,7 +146,19 @@ const AdminRegister = () => {
                 required
                 className="shadow-sm"
               />
+            </Form.Group> */}
+            <Form.Group className="mb-3" controlId="security_message">
+              <Form.Label>Security Message</Form.Label>
+              <Form.Control
+                type="text"
+                name="security_message"
+                placeholder="Enter a security message"
+                onChange={handleChange}
+                required
+                className="shadow-sm"
+              />
             </Form.Group>
+
             <Form.Group className="mb-3" controlId="department">
               <Form.Label>Department</Form.Label>
               <Form.Control

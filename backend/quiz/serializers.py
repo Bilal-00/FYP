@@ -22,7 +22,7 @@ class StudentRegistrationSerializer(serializers.ModelSerializer):
         model = Student
         fields = [
             'first_name', 'last_name', 'email', 'profile_pic',
-            'phone_number', 'department', 'username', 'password'
+            'phone_number', 'department', 'username', 'password', 'security_message'
         ]
 
     def validate_email(self, value):
@@ -118,3 +118,14 @@ class DashboardSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['username', 'email', 'first_name', 'last_name', 'profile_pic', 'phone_number', 'department', 'results']
+
+
+
+class SecurityAnswerSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    selected_answer = serializers.CharField()
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    new_password = serializers.CharField()

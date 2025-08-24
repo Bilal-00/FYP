@@ -86,7 +86,7 @@ const ManageCourses = () => {
             marginBottom: "0",
           }}
         >
-          Manage Courses
+          Manage Departments
         </h1>
         <div>
           <Button
@@ -107,11 +107,25 @@ const ManageCourses = () => {
         </div>
       </div>
 
+      <Button
+              variant="primary"
+              className="mb-4"
+              style={{
+                fontWeight: "bold",
+                borderRadius: "20px",
+                padding: "10px 20px",
+                boxShadow: "0px 3px 6px rgba(0, 0, 0, 0.1)",
+              }}
+              onClick={() => navigate("/admin/add-course")}
+            >
+              Add Department
+            </Button>
+
       {/* Search Bar */}
       <InputGroup className="mb-4">
         <FormControl
           type="text"
-          placeholder="Search Courses..."
+          placeholder="Search Departments..."
           value={searchQuery}
           onChange={handleSearchChange}
           style={{
@@ -143,7 +157,7 @@ const ManageCourses = () => {
         >
           <tr>
             <th>#</th>
-            <th>Course Name</th>
+            <th>Department Name</th>
             <th>Subjects</th>
             <th>Actions</th>
           </tr>

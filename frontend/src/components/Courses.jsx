@@ -36,14 +36,14 @@ const Courses = ({ onCourseSelect }) => {
 
   return (
     <Container className="mt-5">
-      <h2 className="text-center mb-4 fw-bold text-primary">Explore Our Courses</h2>
+      <h2 className="text-center mb-4 fw-bold text-primary">Explore Our Departments</h2>
 
       {/* Search Bar */}
       <Row className="mb-4 justify-content-center">
         <Col xs={12} md={6}>
           <Form.Control
             type="text"
-            placeholder="Search courses..."
+            placeholder="Search departments..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="shadow rounded-pill border-0 px-4 py-2"
@@ -102,7 +102,7 @@ const Courses = ({ onCourseSelect }) => {
         </Row>
       ) : (
         <Alert variant="warning" className="text-center">
-          No courses found.
+          No departments found.
         </Alert>
       )}
     </Container>
