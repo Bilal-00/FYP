@@ -31,6 +31,8 @@ import Profile from "./components/Profile";
 import AddAdmin from "./components/AddAdmin";
 import ForgotPassword from "./components/ForgotPassword";
 import CreatePassword from "./components/CreatePassword";
+// ✅ Import the new Home component
+import Home from "./components/home";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,7 +47,10 @@ const App = () => {
       <Navbar user={user} setUser={setUser} />
       {/* ToastContainer to display toast notifications */}
       <ToastContainer />
+      
       <Routes>
+        {/* ✅ Default Home Page */}
+        <Route path="/" element={<Home user={user} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/student-login" element={<StudentLogin setUser={setUser} />} />
         <Route path="/admin-login" element={<AdminLogin setUser={setUser} />} />

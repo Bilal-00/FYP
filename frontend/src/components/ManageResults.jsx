@@ -89,7 +89,7 @@ const ManageResults = () => {
                     {subject.name}
                   </Card.Title>
                   <Card.Text style={{ fontSize: "1rem", color: "#6c757d" }}>
-                    Department: <strong>{subject.course}</strong>
+                    {/* Department: <strong>{subject.course}</strong> */}
                   </Card.Text>
                   <Button
                     variant="primary"

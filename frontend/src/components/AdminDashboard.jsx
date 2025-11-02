@@ -59,10 +59,10 @@ const AdminDashboard = ({ user }) => {
       >
         {[
           { label: "Manage Departments", variant: "primary", route: "/admin/courses" },
-          { label: "Add Department", variant: "success", route: "/admin/add-course" },
-          { label: "Add Subject", variant: "info", route: "/admin/add-subject" },
-          { label: "Add Questions", variant: "warning", route: "/admin/add-question" },
-          { label: "Manage Results", variant: "dark", route: "/admin/manage-results" },
+          { label: "Add Department", variant: "primary", route: "/admin/add-course" },
+          { label: "Add Subject", variant: "primary", route: "/admin/add-subject" },
+          { label: "Add Questions", variant: "primary", route: "/admin/add-question" },
+          { label: "Manage Results", variant: "primary", route: "/admin/manage-results" },
         ].map(({ label, variant, route }) => (
           <Col xs={12} md={6} key={label}>
             <Button
